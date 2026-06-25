@@ -16,7 +16,7 @@ const siteContent = {
 
   hero: {
     firstName: 'Людмила',
-    lastName: 'Иванова',
+    lastName: 'Киселева',
     role: 'Веб-разработчик & создатель цифровых продуктов',
     description:
       'Помогаю предпринимателям и экспертам превращать идеи в работающие сайты и веб-приложения. Сочетаю современные технологии с продуманным UX — чтобы ваш продукт выглядел профессионально и приносил результат.',
@@ -115,7 +115,7 @@ const siteContent = {
         technologies: ['React', 'Tailwind CSS', 'TypeScript'],
         demoUrl: '#',
         githubUrl: '#',
-        theme: 'rose',
+        theme: 'red',
       },
       {
         id: 2,
@@ -124,7 +124,7 @@ const siteContent = {
         technologies: ['Next.js', 'CSS Modules', 'API'],
         demoUrl: '#',
         githubUrl: '#',
-        theme: 'sage',
+        theme: 'yellow',
       },
       {
         id: 3,
@@ -133,7 +133,7 @@ const siteContent = {
         technologies: ['React', 'Framer Motion', 'Tailwind'],
         demoUrl: '#',
         githubUrl: '#',
-        theme: 'amber',
+        theme: 'white',
       },
       {
         id: 4,
@@ -142,7 +142,7 @@ const siteContent = {
         technologies: ['Next.js', 'TypeScript', 'PostgreSQL'],
         demoUrl: '#',
         githubUrl: '#',
-        theme: 'sky',
+        theme: 'mix',
       },
       {
         id: 5,
@@ -151,7 +151,7 @@ const siteContent = {
         technologies: ['React', 'Node.js', 'Headless CMS'],
         demoUrl: '#',
         githubUrl: '#',
-        theme: 'stone',
+        theme: 'red',
       },
       {
         id: 6,
@@ -160,7 +160,7 @@ const siteContent = {
         technologies: ['React', 'TypeScript', 'Firebase'],
         demoUrl: '#',
         githubUrl: '#',
-        theme: 'teal',
+        theme: 'yellow',
       },
     ],
     demoLabel: 'Демо',
@@ -224,7 +224,7 @@ const siteContent = {
   },
 
   footer: {
-    name: 'Людмила Иванова',
+    name: 'Людмила Киселева',
     tagline: 'Веб-разработка & цифровые продукты',
     backToTop: 'Наверх',
     rights: 'Все права защищены.',

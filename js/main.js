@@ -20,7 +20,19 @@ function sectionHeader(title, subtitle) {
     <div class="section-header">
       <h2 class="section-title">${title}</h2>
       ${subtitle ? `<p class="section-subtitle">${subtitle}</p>` : ''}
-      <div class="section-divider"></div>
+      <div class="section-divider">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  `
+}
+
+function renderPageBackground() {
+  return `
+    <div class="page-bg" aria-hidden="true">
+      <div class="page-bg__orb page-bg__orb--red"></div>
+      <div class="page-bg__orb page-bg__orb--yellow"></div>
+      <div class="page-bg__orb page-bg__orb--white"></div>
     </div>
   `
 }
@@ -57,6 +69,9 @@ function renderHero() {
   const { hero } = siteContent
   return `
     <section class="hero" id="hero">
+      <div class="hero__shape hero__shape--1"></div>
+      <div class="hero__shape hero__shape--2"></div>
+      <div class="hero__shape hero__shape--3"></div>
       <div class="hero__blob-1"></div>
       <div class="hero__blob-2"></div>
       <div class="container">
@@ -95,7 +110,7 @@ function renderHero() {
 function renderAbout() {
   const { about } = siteContent
   const cards = about.advantages.map((item, i) => `
-    <div class="about__card">
+    <div class="about__card stagger-item" style="transition-delay: ${i * 0.1}s">
       <div class="about__card-num">${i + 1}</div>
       <h3 class="about__card-title">${item.title}</h3>
       <p class="about__card-desc">${item.description}</p>
@@ -121,8 +136,8 @@ function renderAbout() {
 
 function renderSkills() {
   const { skills } = siteContent
-  const categories = skills.categories.map((cat) => `
-    <div class="skills__category">
+  const categories = skills.categories.map((cat, i) => `
+    <div class="skills__category stagger-item" style="transition-delay: ${i * 0.12}s">
       <h3 class="skills__category-title">${cat.name}</h3>
       <ul class="skills__list">
         ${cat.items.map((item) => `<li><span class="skills__dot"></span>${item}</li>`).join('')}
@@ -142,8 +157,8 @@ function renderSkills() {
 
 function renderAudience() {
   const { audience } = siteContent
-  const cards = audience.cards.map((card) => `
-    <div class="audience__card">
+  const cards = audience.cards.map((card, i) => `
+    <div class="audience__card stagger-item" style="transition-delay: ${i * 0.1}s">
       <div class="audience__icon">${ICONS[card.icon] || ''}</div>
       <h3 class="audience__title">${card.title}</h3>
       <p class="audience__desc">${card.description}</p>
@@ -162,8 +177,8 @@ function renderAudience() {
 
 function renderPortfolio() {
   const { portfolio } = siteContent
-  const cards = portfolio.projects.map((project) => `
-    <article class="portfolio__card">
+  const cards = portfolio.projects.map((project, i) => `
+    <article class="portfolio__card stagger-item" style="transition-delay: ${i * 0.08}s">
       <div class="portfolio__thumb thumb--${project.theme}">
         <span class="portfolio__thumb-num">${String(project.id).padStart(2, '0')}</span>
       </div>
@@ -197,8 +212,8 @@ function renderPortfolio() {
 
 function renderProcess() {
   const { process } = siteContent
-  const steps = process.steps.map((step) => `
-    <div class="process__step">
+  const steps = process.steps.map((step, i) => `
+    <div class="process__step stagger-item" data-step="${i}" style="transition-delay: ${i * 0.1}s">
       <div class="process__step-num">${step.number}</div>
       <h3 class="process__step-title">${step.title}</h3>
       <p class="process__step-desc">${step.description}</p>
@@ -300,6 +315,7 @@ function renderFooter() {
 function renderPage() {
   const app = document.getElementById('app')
   app.innerHTML = [
+    renderPageBackground(),
     renderHeader(),
     '<main>',
     renderHero(),
@@ -393,6 +409,40 @@ function setupReveal() {
   document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
 }
 
+function setupStagger() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  )
+
+  document.querySelectorAll('.stagger-item').forEach((el) => observer.observe(el))
+}
+
+function setupProcessHighlight() {
+  const steps = document.querySelectorAll('.process__step')
+  if (!steps.length) return
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active')
+        }
+      })
+    },
+    { threshold: 0.5 }
+  )
+
+  steps.forEach((step) => observer.observe(step))
+}
+
 function init() {
   document.title = siteContent.meta.title
   renderPage()
@@ -402,6 +452,8 @@ function init() {
   setupForm()
   setupBackToTop()
   setupReveal()
+  setupStagger()
+  setupProcessHighlight()
 }
 
 document.addEventListener('DOMContentLoaded', init)
