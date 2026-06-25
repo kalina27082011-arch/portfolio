@@ -10,8 +10,8 @@ const siteContent = {
     { id: 'skills', label: 'Навыки' },
     { id: 'audience', label: 'Для кого' },
     { id: 'portfolio', label: 'Работы' },
-    { id: 'reviews', label: 'Отзывы' },
     { id: 'process', label: 'Этапы' },
+    { id: 'reviews', label: 'Отзывы' },
     { id: 'contact', label: 'Контакты' },
   ],
 
@@ -250,7 +250,7 @@ const siteContent = {
     links: [
       { type: 'email', label: 'Email', value: 'hello@example.com', href: 'mailto:hello@example.com' },
       { type: 'telegram', label: 'Telegram', value: '@username', href: 'https://t.me/username' },
-      { type: 'linkedin', label: 'LinkedIn', value: 'linkedin.com/in/username', href: 'https://linkedin.com/in/username' },
+      { type: 'max', label: 'Max', value: '@username', href: 'https://max.ru/username' },
       { type: 'github', label: 'GitHub', value: 'github.com/username', href: 'https://github.com/username' },
     ],
     form: {
