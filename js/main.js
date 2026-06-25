@@ -1,6 +1,7 @@
 const ICONS = {
   briefcase: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2zM16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>',
   star: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>',
+  starFilled: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>',
   store: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/></svg>',
   rocket: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>',
   email: '<svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
@@ -51,7 +52,7 @@ function renderHeader() {
     <header class="header" id="header">
       <div class="header__inner">
         <button class="header__logo" data-scroll="hero">
-          ${hero.firstName}<span class="header__logo-dot">.</span>
+          ${hero.firstName} <span class="header__logo-surname">${hero.lastName}</span><span class="header__logo-dot">.</span>
         </button>
         <nav class="header__nav">${navLinks}</nav>
         <button class="header__cta" data-scroll="contact">${hero.ctaContact}</button>
@@ -210,6 +211,40 @@ function renderPortfolio() {
   `
 }
 
+function renderStars(rating) {
+  return Array.from({ length: 5 }, (_, i) => {
+    const filled = i < rating
+    return `<span class="reviews__star${filled ? ' reviews__star--filled' : ''}">${filled ? ICONS.starFilled : ICONS.star}</span>`
+  }).join('')
+}
+
+function renderReviews() {
+  const { reviews } = siteContent
+  const cards = reviews.items.map((item, i) => `
+    <article class="reviews__card stagger-item" style="transition-delay: ${i * 0.08}s">
+      <div class="reviews__quote-mark">"</div>
+      <div class="reviews__stars">${renderStars(item.rating)}</div>
+      <p class="reviews__text">${item.text}</p>
+      <div class="reviews__author">
+        <div class="reviews__avatar">${item.name.charAt(0)}</div>
+        <div>
+          <p class="reviews__name">${item.name}</p>
+          <p class="reviews__role">${item.role}</p>
+        </div>
+      </div>
+    </article>
+  `).join('')
+
+  return `
+    <section class="section section--alt reveal" id="reviews">
+      <div class="container">
+        ${sectionHeader(reviews.title, reviews.subtitle)}
+        <div class="reviews__grid">${cards}</div>
+      </div>
+    </section>
+  `
+}
+
 function renderProcess() {
   const { process } = siteContent
   const steps = process.steps.map((step, i) => `
@@ -323,6 +358,7 @@ function renderPage() {
     renderSkills(),
     renderAudience(),
     renderPortfolio(),
+    renderReviews(),
     renderProcess(),
     renderContact(),
     '</main>',

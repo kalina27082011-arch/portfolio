@@ -232,13 +232,30 @@ ul { list-style: none; }
 
 .header__logo {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: var(--white);
   transition: color var(--transition);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .header__logo { font-size: 1.25rem; }
+}
+
+.header__logo-surname {
+  background: linear-gradient(135deg, var(--red), var(--yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .header__logo:hover { color: var(--yellow); }
+
+.header__logo:hover .header__logo-surname {
+  -webkit-text-fill-color: var(--yellow);
+  background: none;
+}
 
 .header__logo-dot {
   color: var(--red);
@@ -1078,6 +1095,150 @@ ul { list-style: none; }
 .portfolio__link--github:hover { color: var(--white); }
 
 .portfolio__link svg { width: 0.875rem; height: 0.875rem; }
+
+/* ===== Reviews ===== */
+.reviews__grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .reviews__grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1024px) {
+  .reviews__grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.reviews__card {
+  position: relative;
+  padding: 1.75rem;
+  background: var(--graphite-mid);
+  border: 1px solid var(--graphite-border);
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  overflow: hidden;
+}
+
+.reviews__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--red), var(--yellow));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s ease;
+}
+
+.reviews__card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(230, 57, 70, 0.4);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.4);
+}
+
+.reviews__card:hover::before { transform: scaleY(1); }
+
+.reviews__quote-mark {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--yellow);
+  opacity: 0.35;
+  margin-bottom: -0.5rem;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.reviews__card:hover .reviews__quote-mark {
+  opacity: 0.7;
+  transform: scale(1.1);
+}
+
+.reviews__stars {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.reviews__star {
+  display: flex;
+  color: rgba(255, 255, 255, 0.15);
+  transition: color var(--transition), transform var(--transition);
+}
+
+.reviews__star svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  fill: currentColor;
+  stroke: none;
+}
+
+.reviews__star--filled { color: var(--yellow); }
+
+.reviews__card:hover .reviews__star--filled {
+  animation: starPop 0.4s ease backwards;
+}
+
+.reviews__card:hover .reviews__star--filled:nth-child(1) { animation-delay: 0.05s; }
+.reviews__card:hover .reviews__star--filled:nth-child(2) { animation-delay: 0.1s; }
+.reviews__card:hover .reviews__star--filled:nth-child(3) { animation-delay: 0.15s; }
+.reviews__card:hover .reviews__star--filled:nth-child(4) { animation-delay: 0.2s; }
+.reviews__card:hover .reviews__star--filled:nth-child(5) { animation-delay: 0.25s; }
+
+@keyframes starPop {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.reviews__text {
+  flex: 1;
+  font-size: 0.9375rem;
+  color: var(--white-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.reviews__author {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--graphite-border);
+}
+
+.reviews__avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), var(--yellow));
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.reviews__card:hover .reviews__avatar { transform: scale(1.08); }
+
+.reviews__name {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.9375rem;
+}
+
+.reviews__role {
+  font-size: 0.8125rem;
+  color: var(--white-faint);
+  margin-top: 0.125rem;
+}
 
 /* ===== Process ===== */
 .process__steps {
