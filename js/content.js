@@ -1,4 +1,4 @@
-export const siteContent = {
+const siteContent = {
   meta: {
     title: 'Портфолио — Веб-разработчик',
     description:
@@ -115,7 +115,7 @@ export const siteContent = {
         technologies: ['React', 'Tailwind CSS', 'TypeScript'],
         demoUrl: '#',
         githubUrl: '#',
-        gradient: 'from-rose-100 to-orange-50',
+        theme: 'rose',
       },
       {
         id: 2,
@@ -124,7 +124,7 @@ export const siteContent = {
         technologies: ['Next.js', 'CSS Modules', 'API'],
         demoUrl: '#',
         githubUrl: '#',
-        gradient: 'from-sage-light/40 to-cream-200',
+        theme: 'sage',
       },
       {
         id: 3,
@@ -133,7 +133,7 @@ export const siteContent = {
         technologies: ['React', 'Framer Motion', 'Tailwind'],
         demoUrl: '#',
         githubUrl: '#',
-        gradient: 'from-amber-50 to-cream-100',
+        theme: 'amber',
       },
       {
         id: 4,
@@ -142,7 +142,7 @@ export const siteContent = {
         technologies: ['Next.js', 'TypeScript', 'PostgreSQL'],
         demoUrl: '#',
         githubUrl: '#',
-        gradient: 'from-sky-50 to-indigo-50',
+        theme: 'sky',
       },
       {
         id: 5,
@@ -151,7 +151,7 @@ export const siteContent = {
         technologies: ['React', 'Node.js', 'Headless CMS'],
         demoUrl: '#',
         githubUrl: '#',
-        gradient: 'from-stone-100 to-cream-200',
+        theme: 'stone',
       },
       {
         id: 6,
@@ -160,7 +160,7 @@ export const siteContent = {
         technologies: ['React', 'TypeScript', 'Firebase'],
         demoUrl: '#',
         githubUrl: '#',
-        gradient: 'from-teal-50 to-emerald-50',
+        theme: 'teal',
       },
     ],
     demoLabel: 'Демо',
@@ -219,6 +219,7 @@ export const siteContent = {
       submitLabel: 'Отправить сообщение',
       successTitle: 'Сообщение отправлено!',
       successMessage: 'Спасибо за обращение. Я свяжусь с вами в ближайшее время.',
+      resendLabel: 'Отправить ещё одно сообщение',
     },
   },
 
@@ -226,7 +227,6 @@ export const siteContent = {
     name: 'Людмила Иванова',
     tagline: 'Веб-разработка & цифровые продукты',
     backToTop: 'Наверх',
+    rights: 'Все права защищены.',
   },
-} as const
-
-export type SiteContent = typeof siteContent
+}
